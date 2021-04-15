@@ -19,5 +19,7 @@ class UDPStreamer:
         uvicorn.run(web(), host=self.output_stream, port=self.output_port)
         web.shutdown()
 
-udp_streamer = UDPStreamer("udp://10.22.23.227:5000","localhost:8080")
+#udp_streamer = UDPStreamer("udp://10.22.23.227:5000","localhost:8080")
+
+udp_streamer = UDPStreamer("testvid.mp4","localhost:8080")
 udp_streamer.run()
