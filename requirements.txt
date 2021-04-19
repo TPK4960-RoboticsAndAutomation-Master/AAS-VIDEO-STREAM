@@ -1,2 +1,2 @@
-vidgear
-uvicorn[asyncio]
+vidgear[asyncio]
+uvicorn

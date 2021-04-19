@@ -3,8 +3,7 @@ import os
 import argparse
 from time import sleep
 from opcua import ua, Client
-from threading import Thread
-
+import subprocess
 
 class CameraPubSub():
     def __init__(self, ua_obj):
@@ -12,16 +11,20 @@ class CameraPubSub():
         self.port = 9010
         self.i = 0
         self.sources = ["0", "theroom.mp4", "theroom.mp4"]
+        self.procs = []
 
     def run_thread(self, source, port):
         os.system("python3 streamer.py --source " + source + " --port " + str(port))
 
     def event_notification(self, event):
         if event.Message.Text.lower() == "start":
-            Thread(target=self.run_thread, args=(self.sources[self.i], str(self.port))).start()
+            #Thread(target=self.run_thread, args=(self.sources[self.i], str(self.port))).start
+            self.procs.append(subprocess.Popen(["python3", "streamer.py", "-s" + str(self.sources[self.i]), "-p" + str(self.port)]))
             self.port += 1
             self.i += 1
 
+        elif event.Message.Text.lower() == "stop":
+            self.procs[self.i-1].terminate()
 
 def main(argv=sys.argv[1:]):
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
