@@ -22,13 +22,15 @@ def start_stream(argv=sys.argv[1:]):
 
     if len(stream_source) == 1:
         stream_source = int(stream_source)
+    else:
+        stream_source = "udp://" + stream_source
 
     # initialize WebGear app
     web = WebGear(
         source=stream_source, logging=False, **options
     )
     
-    uvicorn.run(web(), host="localhost", port=int(args.port))
+    uvicorn.run(web(), host="10.22.22.52", port=int(args.port))
 
 if __name__ == '__main__':
     start_stream()

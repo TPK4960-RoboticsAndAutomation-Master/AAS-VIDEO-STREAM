@@ -8,23 +8,18 @@ import subprocess
 class CameraPubSub():
     def __init__(self, ua_obj):
         self.server_obj = ua_obj
-        self.port = 9010
-        self.i = 0
-        self.sources = ["0", "theroom.mp4", "theroom.mp4"]
-        self.procs = []
-
-    def run_thread(self, source, port):
-        os.system("python3 streamer.py --source " + source + " --port " + str(port))
+        self.procs = {}
 
     def event_notification(self, event):
-        if event.Message.Text.lower() == "start":
-            #Thread(target=self.run_thread, args=(self.sources[self.i], str(self.port))).start
-            self.procs.append(subprocess.Popen(["python3", "streamer.py", "-s" + str(self.sources[self.i]), "-p" + str(self.port)]))
-            self.port += 1
-            self.i += 1
+        action, rid, udp_url, stream_port = event.Message.Text.split(",")
 
-        elif event.Message.Text.lower() == "stop":
-            self.procs[self.i-1].terminate()
+        udp_url = "0"
+
+        if action.lower() == "start" and rid not in self.procs:
+            self.procs[rid] = subprocess.Popen(["python3", "streamer.py", "-s" + str(udp_url), "-p" + str(stream_port)])
+        elif action.lower() == "stop" and rid in self.procs:
+            self.procs[rid].terminate()
+            self.procs.pop(rid, None)
 
 def main(argv=sys.argv[1:]):
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
