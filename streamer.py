@@ -30,7 +30,9 @@ def start_stream(argv=sys.argv[1:]):
         source=stream_source, logging=False, **options
     )
     
-    uvicorn.run(web(), host="10.22.22.52", port=int(args.port))
+    uvicorn.run(web(), host="localhost", port=int(args.port))
+
+    web.shutdown()
 
 if __name__ == '__main__':
     start_stream()
