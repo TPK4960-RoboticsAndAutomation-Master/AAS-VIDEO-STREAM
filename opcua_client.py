@@ -16,6 +16,7 @@ class CameraPubSub():
         action, rid, udp_url, stream_port = event.Message.Text.split(",")
 
         #udp_url = "0" #For testing with onboard laptop camera
+        print(cl_green("INFO") + ":    ", "Incoming action:", action, "Robot:", rid)
 
         if action.lower() == "start" and rid not in self.procs:
             self.procs[rid] = subprocess.Popen(["python3", "streamer.py", "-s" + str(udp_url), "-p" + str(stream_port)])
