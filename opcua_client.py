@@ -23,7 +23,7 @@ class CameraPubSub():
         elif action.lower() == "stop" and rid in self.procs:
             print(cl_green("INFO") + ":    ", "Shutting down camera on", udp_url, "with PID:", self.procs[rid].pid)
             self.procs[rid].terminate()
-            os.kill(self.procs[rid].pid, 9) #Hacky solution because of webgear api wont shutdown if connenctions are open
+            os.kill(self.procs[rid].pid, 9) #Hacky solution since webgear api will not shutdown if connenctions are open
             self.procs.pop(rid, None)
             print(cl_green("INFO") + ":    ", "Shutdown complete")
 
@@ -43,6 +43,7 @@ def main(argv=sys.argv[1:]):
         try:
             opcua_client.connect()
             isConnected = True
+            print("Successfully connected with OPC UA server on: " + args.domain + ":4841")
         except:
             print("Failed to connect on " + args.domain + " ... retrying")
             sleep(1)
