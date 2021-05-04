@@ -39,7 +39,7 @@ def start_stream(argv=sys.argv[1:]):
         source=stream_source, logging=False, **options
     )
     
-    uvicorn.run(web(), host="10.22.21.23", port=int(args.port))
+    uvicorn.run(web(), host="andrcar-master.ivt.ntnu.no", port=int(args.port))
 
     web.shutdown()
 
