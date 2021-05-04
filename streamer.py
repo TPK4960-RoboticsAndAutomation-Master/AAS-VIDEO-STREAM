@@ -5,11 +5,20 @@ import argparse
 import sys
 
 # various performance tweaks
+"""
 options = {
     "frame_size_reduction": 40,
     "frame_jpeg_quality": 80,
     "frame_jpeg_optimize": True,
     "frame_jpeg_progressive": False,
+}
+"""
+
+options = {
+    "frame_size_reduction": 40,
+    "frame_jpeg_quality": 40,
+    "frame_jpeg_optimize": True,
+    "frame_jpeg_progressive": True,
 }
 
 def start_stream(argv=sys.argv[1:]):
@@ -30,7 +39,7 @@ def start_stream(argv=sys.argv[1:]):
         source=stream_source, logging=False, **options
     )
     
-    uvicorn.run(web(), host="localhost", port=int(args.port))
+    uvicorn.run(web(), host="10.22.21.23", port=int(args.port))
 
     web.shutdown()
 
