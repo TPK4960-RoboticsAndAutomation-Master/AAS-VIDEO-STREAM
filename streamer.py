@@ -15,10 +15,10 @@ options = {
 """
 
 options = {
-    "frame_size_reduction": 40,
-    "frame_jpeg_quality": 40,
-    "frame_jpeg_optimize": True,
-    "frame_jpeg_progressive": True,
+    "frame_size_reduction": 30,
+    "frame_jpeg_quality": 70,
+    "frame_jpeg_optimize": False,
+    "frame_jpeg_progressive": False,
 }
 
 def start_stream(argv=sys.argv[1:]):
