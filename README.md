@@ -12,4 +12,10 @@ Python scripts:
 There are dependencies that need to be installed on the system before the AAS Video Streamer is fully functional.
 
 Install the related python packages using pip:
-    `$ pip3 install -r requirements.txt` 
+
+    $ pip3 install -r requirements.txt 
+
+## Usage
+Launch the AAS Video Streamer with the command:
+
+    $ python3 opcua_client.py -d <ip address>
