@@ -37,7 +37,7 @@ def main(argv=sys.argv[1:]):
         For receiving commands from AAS
     """
     isConnected = False
-    opcua_client = Client("opc.tcp://" + args.domain + ":4841/freeopcua/server/")
+    opcua_client = Client("opc.tcp://" + args.domain + "/freeopcua/server/")
 
     while not isConnected:
         try:
